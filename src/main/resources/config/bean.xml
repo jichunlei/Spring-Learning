@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+    <!--利用property进行注入-->
+    <bean id="person" class="cn.jicl.entity.Person">
+        <property name="name" value="xianzilei"/>
+        <property name="age" value="18"/>
+    </bean>
+    <!--<bean id="person2" class="cn.jicl.entity.Person">
+        <property name="name" value="xianzilei2"/>
+        <property name="age" value="18"/>
+    </bean>-->
+    <!--根据有参构造器进行注入（指定name）-->
+    <bean id="person3" class="cn.jicl.entity.Person">
+        <constructor-arg name="name" value="张三"></constructor-arg>
+        <constructor-arg name="age" value="19"></constructor-arg>
+    </bean>
+    <!--根据有参构造器进行注入（不指定name），需保证顺序与有参构造器的参数顺序一致-->
+    <bean id="person4" class="cn.jicl.entity.Person">
+        <constructor-arg value="李四"></constructor-arg>
+        <constructor-arg value="19"></constructor-arg>
+    </bean>
+    <!--根据p标签注入-->
+    <!--名称空间：xml中使用名称空间是为了防止标签重复的（例c:forEach、jsp:forward）-->
+    <bean id="person5" class="cn.jicl.entity.Person" p:age="22" p:name="王五"></bean>
+
+    <!--复杂属性的赋值-->
+    <bean id="person6" class="cn.jicl.entity.Person">
+        <!--赋值null-->
+        <property name="name">
+            <null/>
+        </property>
+        <!--ref:外部引用，相当于student=ioc.getBean("student")-->
+        <!--<property name="student" ref="student"></property>-->
+        <!--创建bean标签注入属性，相当于student=new Student()-->
+        <property name="student">
+            <bean class="cn.jicl.entity.Student" p:name="stu6" p:age="14"/>
+        </property>
+        <!--list属性赋值-->
+        <property name="list">
+            <list>
+                <!--内部bean不能被ioc根据id获取-->
+                <bean class="cn.jicl.entity.Student" p:name="stu7" p:age="18"/>
+                <ref bean="student"/>
+            </list>
+        </property>
+        <!--map属性赋值-->
+        <property name="map">
+            <map>
+                <!--一个entry代表一个键值对-->
+                <entry key="k1" value="v1"/>
+                <entry key="k2" value-ref="person"/>
+                <entry key="k3">
+                    <bean class="cn.jicl.entity.Student" p:name="stu7" p:age="17"/>
+                </entry>
+                <entry key="k4">
+                    <value>v4</value>
+                </entry>
+            </map>
+        </property>
+        <!--Properties属性赋值-->
+        <property name="properties">
+            <props>
+                <prop key="username">root</prop>
+                <prop key="password">123456</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="student" class="cn.jicl.entity.Student" p:name="小李" p:age="15"></bean>
+    <bean id="person7" class="cn.jicl.entity.Person">
+        <property name="map" ref="myMap"/>
+        <property name="list" ref="myList"/>
+    </bean>
+    <!--util名称空间创建集合类型的bean，方便被调用(可以直接被IOC容器getBean获取)-->
+    <util:map id="myMap">
+        <entry key="k1" value="v1"/>
+    </util:map>
+    <util:list id="myList">
+        <list>
+            <ref bean="myMap"></ref>
+        </list>
+        <ref bean="myMap"/>
+        <bean class="cn.jicl.entity.Person" p:name="apple"/>
+    </util:list>
+</beans>
