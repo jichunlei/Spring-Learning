@@ -1,6 +1,7 @@
 package cn.jicl.bean;
 
 import cn.jicl.entity.Person;
+import cn.jicl.entity.Student;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -128,5 +129,86 @@ public class BeanIocTest {
         System.out.println(person7);
         Map map = context.getBean("myMap", Map.class);
         System.out.println(map);
+    }
+
+    /**
+     * @Description: 使用配置信息的继承
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/22 8:59
+     **/
+    @Test
+    public void test08() {
+        //从IOC中获取bean对象
+        Person person = context.getBean("person8", Person.class);
+        System.out.println(person);
+    }
+
+    /**
+     * @Description: 创建抽象bean模板
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/22 8:59
+     **/
+    @Test
+    public void test09() {
+        //从IOC中获取bean对象
+        Person person = context.getBean("person9", Person.class);
+        System.out.println(person);
+        //如果ioc调用getBean方法获取抽象bean模板，会抛异常：BeanIsAbstractException
+        //Person abstractPerson = context.getBean("abstractPerson", Person.class);
+    }
+
+    /**
+     * @Description: 配置bean的作用域
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/22 8:59
+     **/
+    @Test
+    public void test10() {
+        //从IOC中获取bean对象
+        Person person = context.getBean("person10", Person.class);
+        Person person2 = context.getBean("person10", Person.class);
+        System.out.println(person == person2);
+    }
+
+    /**
+     * @Description: 使用静态工厂模式创建对象
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/22 8:59
+     **/
+    @Test
+    public void test11() {
+        //从IOC中获取bean对象
+        Person person = context.getBean("person11", Person.class);
+        System.out.println(person);
+    }
+
+    /**
+     * @Description: 使用实例工厂模式创建对象
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/22 8:59
+     **/
+    @Test
+    public void test12() {
+        //从IOC中获取bean对象
+        Person person = context.getBean("person12", Person.class);
+        System.out.println(person);
+    }
+
+    /**
+     * @Description: 使用FactoryBean实现类创建对象
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/22 8:59
+     **/
+    @Test
+    public void test13() {
+        //从IOC中获取bean对象
+        Student student = context.getBean("student1", Student.class);
+        System.out.println(student);
     }
 }
