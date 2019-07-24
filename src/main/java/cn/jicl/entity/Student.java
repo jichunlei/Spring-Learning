@@ -11,4 +11,13 @@ import lombok.Data;
 public class Student {
     private String name;
     private Integer age;
+
+    public void init() {
+        System.out.println("初始化...");
+    }
+
+    public void destory() {
+        System.out.println("销毁...");
+    }
+
 }

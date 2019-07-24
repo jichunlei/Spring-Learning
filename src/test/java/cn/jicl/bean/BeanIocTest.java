@@ -4,6 +4,7 @@ import cn.jicl.entity.Person;
 import cn.jicl.entity.Student;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Map;
@@ -25,7 +26,8 @@ public class BeanIocTest {
     //容器创建的时候就已经创建了对象
     //IOC容器在创建对象的时候会使用对象的set方法为这个对象的属性赋值
     //Javabean的属性名由set、get方法决定（即方法名去除set或get然后首字母小写）
-    ApplicationContext context = new ClassPathXmlApplicationContext("config/bean.xml");
+    //ApplicationContext context = new ClassPathXmlApplicationContext("config/bean.xml");
+    ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("config/bean.xml");
     //文件路径下（不推荐）
     //ApplicationContext context=new FileSystemXmlApplicationContext("D:\\IDEA\\GitRepositories\\SpringDemo\\src\\main\\resources\\config\\bean.xml");
 
@@ -210,5 +212,29 @@ public class BeanIocTest {
         //从IOC中获取bean对象
         Student student = context.getBean("student1", Student.class);
         System.out.println(student);
+    }
+
+    /**
+     * @Description: 创建带有生命周期的bean
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/22 8:59
+     **/
+    @Test
+    public void test14() {
+        context.close();
+    }
+
+    /**
+     * @Description: 初始化后置处理器
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/22 8:59
+     **/
+    @Test
+    public void test15() {
+        //从IOC中获取bean对象
+        Student student2 = context.getBean("student2", Student.class);
+        System.out.println(student2);
     }
 }

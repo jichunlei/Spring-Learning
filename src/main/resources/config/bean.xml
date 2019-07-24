@@ -137,4 +137,16 @@
     <!--FactoryBean<T>接口：实现该接口即为一个工厂(T为需要创建对象的类型)
         ioc容器启动的时候不会创建对象，只有在容器获取的时候才会创建对象-->
     <bean id="student1" class="cn.jicl.entity.factory.MyFactoryBeanImpl"/>
+
+    <!--创建带有生命周期的bean
+        单例：容器启动（调用初始化方法）
+             容器关闭（调用销毁方法）
+        多例：容器启动（不调用初始化方法）
+              容器获取bean（调用初始化方法）
+             容器关闭（不调用销毁方法）-->
+    <bean class="cn.jicl.entity.Student" id="student2" init-method="init" destroy-method="destory"/>
+
+    <!--配置bean的后置处理器（实现接口BeanPostProcessor）
+        不管要创建的bean是否有初始化方法，后置处理器都起作用-->
+    <bean class="cn.jicl.entity.MyBeanPostProcessoImpl"/>
 </beans>
