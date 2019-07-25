@@ -7,7 +7,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/util
-        http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
     <!--利用property进行注入-->
     <bean id="person" class="cn.jicl.entity.Person">
@@ -149,4 +151,38 @@
     <!--配置bean的后置处理器（实现接口BeanPostProcessor）
         不管要创建的bean是否有初始化方法，后置处理器都起作用-->
     <bean class="cn.jicl.entity.MyBeanPostProcessoImpl"/>
+
+    <!--引用外部配置文件(使用context名称空间)
+        用来加载外部配置文件-->
+    <context:property-placeholder location="classpath:config/dbconfig.properties"/>
+    <!--可以让spring帮我们管理数据库连接池对象（单例）-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="user" value="${jdbc_username}"/>
+        <property name="password" value="${jdbc_password}"/>
+        <property name="jdbcUrl" value="${jdbc_jdbcUrl}"/>
+        <property name="driverClass" value="${jdbc_driverClass}"/>
+    </bean>
+
+    <!--Spring关键字username（为计算机系统名称）-->
+    <bean id="student3" class="cn.jicl.entity.Student">
+        <property name="name" value="${username}"/>
+    </bean>
+
+    <!--SpEL(Spring Expression Language)spring表达式语言-->
+    <bean class="cn.jicl.entity.Person" id="person13">
+        <!--字面值-->
+        <property name="age" value="#{4*5}"/>
+        <!--引用其他bean的属性-->
+        <property name="name" value="#{student3.name}"/>
+        <!--引用其他bean-->
+        <property name="student" value="#{student3}"/>
+        <property name="list">
+            <list>
+                <!--调用静态方法:T(全类名).静态方法(...)-->
+                <value>#{T(java.util.UUID).randomUUID().toString().substring(0,10)}</value>
+                <!--调用非静态方法:对象.方法(...)-->
+                <value>#{student.getName()}</value>
+            </list>
+        </property>
+    </bean>
 </beans>

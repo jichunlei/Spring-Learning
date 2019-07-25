@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+    <!--使用注解快速注入bean到容器中
+        1.@Controller：用在表现层，对来自前端的请求进行转发处理与重定向
+        2.@Service：用在业务层，用来处理业务逻辑
+        3.@Repository：在持久层，标注 DAO 类，表示这个类可以对数据库进行数据的读取或者写入
+        4.@Component：基础注解，表示一个 JavaBean 可以被注入到 Spring 容器中
+        注：spring不区分以上四个注解（可以任意使用），只是推荐使用，方便查看类属于哪一层（规范）
+        -->
+    <!--配置自动扫描路径-->
+    <context:component-scan base-package="cn.jicl">
+        <!--context:exclude-filter：排除不需要注入的组件
+            排除规则type：
+                1)annotation:按照注解进排除
+                2)aspectj:
+                3)assignable:
+                4)custom:
+                5)regex:
+        -->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+    </context:component-scan>
+</beans>

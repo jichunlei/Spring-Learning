@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--Spring的自动装配机制（仅对自定义类型的属性有效）
+        1)、default/no：不自动装配（默认为default）
+        2)、byName：根据bean中的属性名去容器找id相同的bean，找不到则为null
+        3)、byType：按照属性的类类型去容器中找bean，找不到为null，找到唯一注入，找到多个抛异常
+        4)、constructor：先按照类型进行查找容器，如果找不到为null，找到唯一注入，找到多个再按照id注入，找不到为null，找到注入
+            （前提：构造器入参含有该属性，找到会调用构造函数，找不到不调用构造桉树始终不会抛异常）
+        注：如果属性中有list，会把满足条件的所有bean组装到list中
+    -->
+    <bean id="s1" class="cn.jicl.entity.Student">
+        <property name="name" value="s1"/>
+        <property name="age" value="18"/>
+    </bean>
+    <bean id="s2" class="cn.jicl.entity.Student">
+        <property name="name" value="s2"/>
+        <property name="age" value="19"/>
+    </bean>
+
+    <bean id="person" class="cn.jicl.entity.Person" autowire="constructor"></bean>
+
+</beans>

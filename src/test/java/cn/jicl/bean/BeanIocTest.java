@@ -3,10 +3,12 @@ package cn.jicl.bean;
 import cn.jicl.entity.Person;
 import cn.jicl.entity.Student;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.sql.DataSource;
 import java.util.Map;
 
 /**
@@ -236,5 +238,44 @@ public class BeanIocTest {
         //从IOC中获取bean对象
         Student student2 = context.getBean("student2", Student.class);
         System.out.println(student2);
+    }
+
+    /**
+     * @Description: 获取数据库连接池对象
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/22 8:59
+     **/
+    @Test
+    public void test16() {
+        //从IOC中获取bean对象
+        DataSource dataSource = context.getBean("dataSource", DataSource.class);
+        System.out.println(dataSource);
+    }
+
+    /**
+     * @Description: Spring中的关键字username(默认为计算机系统名)
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/22 8:59
+     **/
+    @Test
+    public void test17() {
+        //从IOC中获取bean对象
+        Student student = context.getBean("student3", Student.class);
+        System.out.println(student);
+    }
+
+    /**
+     * @Description: SpEL表达式
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/22 8:59
+     **/
+    @Test
+    public void test18() {
+        //从IOC中获取bean对象
+        Person person = context.getBean("person13", Person.class);
+        System.out.println(person);
     }
 }
