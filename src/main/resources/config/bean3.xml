@@ -53,4 +53,7 @@
      注意：@Autowired表示一定得装配上属性，否则抛异常，所以可以使用里面的
             required属性设置为false（默认为true）来解除限制，找不到不抛异常，属性为null
      -->
+    <!--@Resource自动装配：
+        1）jdk中的自动装配注解
+        2）相比较于@Autowired扩展性强（@Autowired只能用于spring框架）-->
 </beans>

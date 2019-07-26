@@ -1,8 +1,7 @@
-package cn.jicl.entity.service;
+package cn.jicl.service;
 
-import cn.jicl.entity.dao.CarDao;
+import cn.jicl.dao.CarDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CarService {
 
-    @Autowired()
+    @Autowired
     private CarDao carDao;
 
     public void addCar() {

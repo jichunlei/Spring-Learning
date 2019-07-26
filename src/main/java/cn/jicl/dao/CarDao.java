@@ -1,4 +1,4 @@
-package cn.jicl.entity.dao;
+package cn.jicl.dao;
 
 import org.springframework.stereotype.Repository;
 

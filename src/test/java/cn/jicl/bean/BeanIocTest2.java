@@ -1,21 +1,32 @@
 package cn.jicl.bean;
 
+import cn.jicl.controller.CarController;
 import cn.jicl.entity.Car;
-import cn.jicl.entity.Person;
-import cn.jicl.entity.Student;
-import cn.jicl.entity.controller.CarController;
+import cn.jicl.service.CarService;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.sql.DataSource;
-import java.util.Map;
 
 /**
  * @Auther: xianzilei
  * @Date: 2019/7/22 08:48
  * @Description:
  */
+
+/**
+ * 使用Spring的单元测试框架
+ * 1）@ContextConfiguration：指定spring配置文件的位置
+ * 2）@RunWith：指定使用哪种驱动来进行单元测试（默认是junit）
+ *
+ * @RunWith(SpringJUnit4ClassRunner.class)： 指定使用spring的单元测试驱动来执行加了@Test注解的测试方法
+ **/
+@ContextConfiguration(locations = "classpath:config/bean3.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
 public class BeanIocTest2 {
     ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("config/bean3.xml");
 
@@ -49,5 +60,20 @@ public class BeanIocTest2 {
         for (int i = 0; i < names.length; i++) {
             System.out.println(names[i]);
         }
+    }
+
+    @Autowired
+    CarController carController;
+
+    /**
+     * @Description: 使用Spring的单元测试框架
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/22 8:59
+     **/
+    @Test
+    public void test03() {
+        System.out.println(carController);
+        carController.addCar();
     }
 }
