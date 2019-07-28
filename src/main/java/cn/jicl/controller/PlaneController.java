@@ -1,13 +1,12 @@
 package cn.jicl.controller;
 
 import cn.jicl.dao.CarDao;
-import cn.jicl.entity.Car;
+import cn.jicl.entity.Plane;
 import cn.jicl.service.CarService;
+import cn.jicl.service.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-
-import javax.annotation.Resource;
 
 /**
  * @Auther: xianzilei
@@ -15,13 +14,13 @@ import javax.annotation.Resource;
  * @Description: TODO
  */
 @Controller
-public class CarController {
+public class PlaneController {
 
     @Autowired
-    private CarService carService;
+    private PlaneService planeService;
 
-    public void addCar() {
-        carService.add(new Car());
+    public void addPlane() {
+        planeService.add(new Plane());
     }
 
     /**

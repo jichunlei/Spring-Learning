@@ -1,5 +1,6 @@
 package cn.jicl.dao;
 
+import cn.jicl.entity.Car;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -8,9 +9,15 @@ import org.springframework.stereotype.Repository;
  * @Description: TODO
  */
 @Repository
-public class CarDao {
+public class CarDao extends BaseDao<Car> {
 
-    public void addCar() {
+    @Override
+    public Car get() {
+        return new Car();
+    }
+
+    @Override
+    public void add(Car car) {
         System.out.println("制造汽车");
     }
 }

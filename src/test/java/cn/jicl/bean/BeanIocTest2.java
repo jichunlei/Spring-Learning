@@ -1,6 +1,7 @@
 package cn.jicl.bean;
 
 import cn.jicl.controller.CarController;
+import cn.jicl.controller.PlaneController;
 import cn.jicl.entity.Car;
 import cn.jicl.service.CarService;
 import org.junit.Test;
@@ -65,6 +66,9 @@ public class BeanIocTest2 {
     @Autowired
     CarController carController;
 
+    @Autowired
+    PlaneController planeController;
+
     /**
      * @Description: 使用Spring的单元测试框架
      * @return: void
@@ -75,5 +79,17 @@ public class BeanIocTest2 {
     public void test03() {
         System.out.println(carController);
         carController.addCar();
+    }
+
+    /**
+     * @Description: 泛型依赖注入：注入一个组件时，泛型也作为参考
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/22 8:59
+     **/
+    @Test
+    public void test04() {
+        carController.addCar();
+        planeController.addPlane();
     }
 }

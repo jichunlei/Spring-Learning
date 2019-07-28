@@ -4,14 +4,17 @@ import cn.jicl.dao.BaseDao;
 import cn.jicl.dao.CarDao;
 import cn.jicl.entity.Car;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * @Auther: xianzilei
- * @Date: 2019/7/25 22:00
+ * @Date: 2019/7/27 15:25
  * @Description: TODO
  */
-@Service
-public class CarService extends BaseService<Car> {
+public class BaseService<T> {
+    @Autowired
+    private BaseDao<T> baseDao;
 
+    public void add(T t) {
+        baseDao.add(t);
+    }
 }
