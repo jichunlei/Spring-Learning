@@ -50,6 +50,13 @@
             <version>4.3.16.RELEASE</version>
         </dependency>
 
+        <!--导入spring-jdbc包-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>4.3.16.RELEASE</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/aopalliance/aopalliance -->
         <dependency>
             <groupId>aopalliance</groupId>

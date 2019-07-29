@@ -5,6 +5,7 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/util
@@ -12,7 +13,9 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.2.xsd
         http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
     <!--开启基于注解的IOC-->
     <context:component-scan base-package="cn.jicl"/>
@@ -42,4 +45,31 @@
         </aop:aspect>
     </aop:config>
     <!--一般主要的切面使用配置，不重要的切面使用注解-->
+
+    <!--引用外部配置文件(使用context名称空间)
+        用来加载外部配置文件-->
+    <context:property-placeholder location="classpath:config/dbconfig.properties"/>
+    <!--可以让spring帮我们管理数据库连接池对象（单例）
+        配置数据源
+    -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="user" value="${jdbc_username}"/>
+        <property name="password" value="${jdbc_password}"/>
+        <property name="jdbcUrl" value="${jdbc_jdbcUrl}"/>
+        <property name="driverClass" value="${jdbc_driverClass}"/>
+    </bean>
+
+    <!-- 配置 Spirng 的 JdbcTemplate -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--事务控制-->
+    <!--1.配置事务管理器（进行事务控制）-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--配置数据源-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--2.开启基于事务注解的事务注解模式（依赖tx名称空间）-->
+    <tx:annotation-driven/>
 </beans>
