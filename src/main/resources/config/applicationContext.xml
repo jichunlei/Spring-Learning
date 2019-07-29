@@ -14,8 +14,32 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
+    <!--开启基于注解的IOC-->
     <context:component-scan base-package="cn.jicl"/>
+    <!--开启基于注解的AOP-->
     <aop:aspectj-autoproxy/>
 
-
+    <aop:config>
+        <!--配置公共切面（能在任意切面上使用）-->
+        <aop:pointcut id="commonPoint"
+                      expression="execution(public double cn.jicl.service.MyCalculator.sub(double,double))"/>
+        <!--指定切面类（可以指定多个）：相当于加了Aspect注解-->
+        <aop:aspect ref="myCalculatorAspect2">
+            <!--配置公共切面（只能在当前切面上使用）-->
+            <aop:pointcut id="point"
+                          expression="execution(public double cn.jicl.service.MyCalculator.sub(double,double))"/>
+            <!--配置前置通知-->
+            <aop:before method="beforeStart"
+                        pointcut="execution(public double cn.jicl.service.MyCalculator.sub(double,double))"/>
+            <!--配置返回通知-->
+            <aop:after-returning method="afterReturnning" pointcut-ref="point" returning="result"/>
+            <!--配置异常通知-->
+            <aop:after-throwing method="afterThrowing" pointcut-ref="point" throwing="e"/>
+            <!--配置后置通知-->
+            <aop:after method="afterEnd" pointcut-ref="point"/>
+            <!--配置环绕通知-->
+            <aop:around method="surround" pointcut-ref="point"/>
+        </aop:aspect>
+    </aop:config>
+    <!--一般主要的切面使用配置，不重要的切面使用注解-->
 </beans>

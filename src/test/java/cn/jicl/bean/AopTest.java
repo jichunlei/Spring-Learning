@@ -60,7 +60,7 @@ public class AopTest {
         //输出class com.sun.proxy.$Proxy24
         //说明容器中保存的组件是目标对象的代理类型
         System.out.println(calculator.getClass());
-        calculator.add(1, 2);
+        calculator.add(2, 5);
     }
 
     /**
@@ -75,5 +75,29 @@ public class AopTest {
         //CGLIB帮我们创建的代理对象-
         System.out.println(myCalculator.getClass());
         myCalculator.add(1, 2);
+    }
+
+    /**
+     * @Description: SpringAOP环绕通知
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/28 10:42
+     **/
+    @Test
+    public void test04() {
+        double result = calculator.mul(2, 7);
+        System.out.println(result);
+    }
+
+    /**
+     * @Description: SpringAOP环绕通知
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/28 10:42
+     **/
+    @Test
+    public void test05() {
+        double result = myCalculator.sub(7, 3);
+        System.out.println(result);
     }
 }
