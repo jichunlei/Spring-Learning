@@ -1,6 +1,8 @@
 package cn.jicl.bean;
 
+import cn.jicl.dao.EmpDao;
 import cn.jicl.service.Calculator;
+import cn.jicl.service.EmpService;
 import cn.jicl.service.MyCalculator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.io.FileNotFoundException;
 
 /**
  * @Auther: xianzilei
@@ -19,7 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class JdbcTest {
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    EmpService empService;
 
     /**
      * @Description: 使用JdbcTemplate操作数据库
@@ -28,9 +32,7 @@ public class JdbcTest {
      * @date: 2019/7/28 10:42
      **/
     @Test
-    public void test01() {
-        String sql="UPDATE emp SET empname=? WHERE id=?";
-        int update = jdbcTemplate.update(sql, "王五", 1);
-        System.out.println("更新数据条数:"+update);
+    public void test01() throws FileNotFoundException {
+        empService.updateName("咸子磊",1,"咸子磊",2);
     }
 }

@@ -44,4 +44,21 @@
 		5）BeanFactory和ApplicationContext的区别
 			a）BeanFactory：bean工厂接口，负责创建bean实例，是Spring最底层的接口；
 			b）ApplicationContext：容器接口，更多地负责容器功能的实现，可以基于BeanFactory创建好的对象之上完成更强大的功能；
-			c）	BeanFactory是最底层接口，ApplicationContext留给程序员使用的IOC容器接口，ApplicationContext是BeanFactory的子接口。		
+			c）	BeanFactory是最底层接口，ApplicationContext留给程序员使用的IOC容器接口，ApplicationContext是BeanFactory的子接口。
+
+三、Spring事务注解
+	1、属性
+		1.1）isolation：事务的隔离级别
+		1.2）propagation：事务的传播行为
+		1.3）rollbackFor：设置哪些异常需要回滚事务（异常类类型）
+		1.4）rollbackForClassName：设置哪些异常需要回滚事务（异常类全类名）
+		1.5）noRollbackFor：设置哪些异常不需要回滚事务（异常类类型）
+		1.6）noRollbackForClassName：设置哪些异常不需要回滚事务（异常类全类名）
+		1.7）timeout：设置超时回滚时间（默认为false）：可以用来进行事务优化，加快查询速度
+		1.8）readOnly：设置事务为只读事务（秒为单位）
+	2、异常回滚细节
+		2.1）运行时异常（非检查异常）：默认回滚
+		2.2）编译时异常（检查异常）：默认不回滚
+		2.3）即默认发生运行时异常都回滚，编译时异常回滚。
+		2.4）noRollbackFor属性可以让那些运行时异常不回滚
+		2.5）rollbackFor属性可以让那些编译时异常回滚
