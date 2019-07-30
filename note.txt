@@ -1,4 +1,4 @@
-AOP:面向切面编程==>指的是在程序运行期间，将某段代码动态地切入到指定方法的指定位置并运行的编程思想。
+一、AOP:面向切面编程==>指的是在程序运行期间，将某段代码动态地切入到指定方法的指定位置并运行的编程思想。
     1、JDK动态代理
     缺点：
         a.写法复杂；
@@ -32,4 +32,16 @@ AOP:面向切面编程==>指的是在程序运行期间，将某段代码动态�
             c）在切面类中使用五个通知注解来配置切面
             d）开启基于注解的AOP功能
         2）基于XML配置的AOP
-            a）
+
+二、Spring源码分析
+    1、AOP（面向切面编程）
+        1）底层就是动态代理，多个AOP就是多层动态代理。
+    2、IOC（控制反转）
+		1）IOC是一个容器
+		2）容器启动的时候会创建所有单实例bean
+		3）我们可以从容器中直接获取这个bean
+		4）原理：（过于复杂）
+		5）BeanFactory和ApplicationContext的区别
+			a）BeanFactory：bean工厂接口，负责创建bean实例，是Spring最底层的接口；
+			b）ApplicationContext：容器接口，更多地负责容器功能的实现，可以基于BeanFactory创建好的对象之上完成更强大的功能；
+			c）	BeanFactory是最底层接口，ApplicationContext留给程序员使用的IOC容器接口，ApplicationContext是BeanFactory的子接口。		
