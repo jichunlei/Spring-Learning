@@ -24,4 +24,12 @@ public class EmpDao {
         System.out.println("更新数据条数:"+update);
         return update;
     }
+
+
+    public BigDecimal select(int id) {
+        String sql = "SELECT salary from emp WHERE id=?";
+        Object[] args = {id};
+        BigDecimal salary = jdbcTemplate.queryForObject(sql, args, BigDecimal.class);
+        return salary;
+    }
 }

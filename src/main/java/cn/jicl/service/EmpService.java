@@ -3,10 +3,12 @@ package cn.jicl.service;
 import cn.jicl.dao.EmpDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 
 /**
  * @Auther: xianzilei
@@ -36,5 +38,10 @@ public class EmpService {
         empDao.update(name2,id2);
         new FileInputStream("D/hahahhaahh.txt");
 //        int i=1/0;
+    }
+
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED, readOnly = true)
+    public BigDecimal getSalary(int id) {
+        return empDao.select(id);
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 
 /**
  * @Auther: xianzilei
@@ -34,5 +35,18 @@ public class JdbcTest {
     @Test
     public void test01() throws FileNotFoundException {
         empService.updateName("咸子磊",1,"咸子磊",2);
+    }
+
+
+    /**
+     * @Description: 事务的隔离级别
+     * @return: void
+     * @auther: xianzilei
+     * @date: 2019/7/28 10:42
+     **/
+    @Test
+    public void test02() {
+        BigDecimal salary = empService.getSalary(1);
+        System.out.println("salary：" + salary);
     }
 }
