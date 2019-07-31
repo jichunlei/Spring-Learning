@@ -77,3 +77,20 @@
 			c）Repeatable Read（可重读）：可能造成幻读。
 			d）Serializable（可串行化）：安全，不会有问题。
 	5、Oracle只支持Read Committed（读取提交内容）和Serializable（可串行化），MySQL支持全部四种隔离级别。
+	6.事务的传播行为：多个事务方法相互调用时，事务如何在这些方法间传播。
+	    6.1）Spring的七种事务传播行为
+	        a）PROPAGATION_REQUIRED（XML文件中为REQUIRED)：表示当前方法必须在一个具有事务的上下文中运行，如有客户端有事务在进行，那么被调用端将在该事务中运行，否则的话重新开启一个事务。（如果被调用端发生异常，那么调用端和被调用端事务都将回滚）
+	        a）PROPAGATION_REQUIRED（XML文件中为REQUIRED)：表示当前方法必须在一个具有事务的上下文中运行，如有客户端有事务在进行，那么被调用端将在该事务中运行，否则的话重新开启一个事务。（如果被调用端发生异常，那么调用端和被调用端事务都将回滚）
+	        b）PROPAGATION_REQUIRES_NEW(XML文件中为REQUIRES_NEW）：表示当前方法必须运行在它自己的事务中。一个新的事务将启动，而且如果有一个现有的事务在运行的话，则这个方法将在运行期被挂起，直到新的事务提交或者回滚才恢复执行
+	        c）PROPAGATION_MANDATORY(XML文件中为MANDATORY）：表示当前方法必须在一个事务中运行，如果没有事务，将抛出异常
+	        d）PROPAGATION_SUPPORTS(XML文件中为SUPPORTS）：表示当前方法不必需要具有一个事务上下文，但是如果有一个事务的话，它也可以在这个事务中运行
+	        e）PROPAGATION_NESTED(XML文件中为NESTED)：表示如果当前方法正有一个事务在运行中，则该方法应该运行在一个嵌套事务中，被嵌套的事务可以独立于被封装的事务中进行提交或者回滚。如果封装事务存在，并且外层事务抛出异常回滚，那么内层事务必须回滚，反之，内层事务并不影响外层事务。如果封装事务不存在，则同PROPAGATION_REQUIRED的一样
+	        f）PROPAGATION_NEVER（XML文件中为NEVER)：表示当方法务不应该在一个事务中运行，如果存在一个事务，则抛出异常
+	        g）PROPAGATION_NOT_SUPPORTED（XML文件中为NOT_SUPPORTED）：表示该方法不应该在一个事务中运行。如果有一个事务正在运行，他将在运行期被挂起，直到这个事务提交或者回滚才恢复执行
+	    6.2）注意：
+	        a）对于多个事务嵌套关系：不管哪里发生异常，已经执行过的事务只要注解为REQUIRES_NEW全部成功。
+	        b）对于REQUIRED事务，关于事务的其他配置全部以大事务为主，子事务即使配置也不起作用。
+	        c）本类方法的嵌套调用，子方法的事务注解不起作用。
+	        d）原理
+	            REQUIRED：将之前大事务的connection传递过来使用
+	            REQUIRES_NEW：新建一个connection来使用

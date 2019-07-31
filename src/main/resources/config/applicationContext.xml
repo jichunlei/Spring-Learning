@@ -72,4 +72,18 @@
     </bean>
     <!--2.开启基于事务注解的事务注解模式（依赖tx名称空间）-->
     <tx:annotation-driven/>
+
+
+    <!--基于XML配置的事务管理(写起来麻烦，还是推荐使用注解)-->
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="myPoint" expression="execution(* cn.jicl.service.*.*(..))" />-->
+        <!--<aop:advisor advice-ref="myAdvice" pointcut-ref="myPoint"/>-->
+    <!--</aop:config>-->
+    <!--配置事务管理器-->
+    <!--<tx:advice id="myAdvice">-->
+        <!--事务属性-->
+        <!--<tx:attributes>-->
+            <!--<tx:method name="*" propagation="REQUIRES_NEW"/>-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
 </beans>
